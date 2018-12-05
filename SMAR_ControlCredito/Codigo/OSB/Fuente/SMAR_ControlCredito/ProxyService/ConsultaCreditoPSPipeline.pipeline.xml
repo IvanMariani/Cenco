@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/typesystem/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con4="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con5="http://www.bea.com/wli/sb/stages/logging/config">
+    <con:coreEntry>
+        <con:binding type="Mixed" xsi:type="con:MixedBindingType">
+            <con:request type="XML">
+                <con1:schema ref="SMAR_ControlCredito/Resorces/Schemas/ConsultaSchema" element="ConsultaCredito"/>
+            </con:request>
+            <con:response type="XML">
+                <con1:schema ref="SMAR_ControlCredito/Resorces/Schemas/ConsultaSchema" element="responseCredito"/>
+            </con:response>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-a700615.N681abb6a.0.1671ccb3e8c.N7e56">
+        <con:pipeline type="request" name="request-a700615.N681abb6a.0.1671ccb3e8c.N7f7a">
+            <con:stage id="_StageId-N53ee35fe.N4e664649.0.1673b79e315.N7fc1" name="Loggin">
+                <con:context/>
+                <con:actions>
+                    <con5:log>
+                        <con2:id>_ActionId-N53ee35fe.N4e664649.0.1673b79e315.N7fc0</con2:id>
+                        <con5:logLevel>debug</con5:logLevel>
+                        <con5:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con5:expr>
+                        <con5:message>Mensaje que llega de POS----></con5:message>
+                    </con5:log>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53ee35fe.N4e664649.0.1673b79e315.N7ffe" name="Enriquecer Header">
+                <con:context>
+                    <con2:userNsDecl prefix="ebm" namespace="http://xmlns.cencosud.corp/Core/EBM/Common/EBM"/>
+                    <con2:userNsDecl prefix="sch" namespace="schema.consulta"/>
+                </con:context>
+                <con:actions>
+                    <con3:assign varName="newEBMHeader">
+                        <con2:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7f3f</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="SMAR_ControlCredito/Resorces/XQuery/incializatEBMHeader"/>
+                                <con2:param name="EBMID">
+                                    <con2:path>$messageID</con2:path>
+                                </con2:param>
+                                <con2:param name="Target">
+                                    <con2:path>'SAP'</con2:path>
+                                </con2:param>
+                                <con2:param name="EBMHeader">
+                                    <con2:path>$body/sch:ConsultaCredito/ebm:EBMHeader</con2:path>
+                                </con2:param>
+                                <con2:param name="BusinessUnit">
+                                    <con2:path>'SM'</con2:path>
+                                </con2:param>
+                                <con2:param name="IntegrationCode">
+                                    <con2:path>'INT2377'</con2:path>
+                                </con2:param>
+                                <con2:param name="Application">
+                                    <con2:path>'POS'</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:replace varName="body">
+                        <con2:id>_ActionId-N53ee35fe.N4e664649.0.1673b79e315.N7fc4</con2:id>
+                        <con3:location>
+                            <con2:xpathText>./sch:ConsultaCredito/ebm:EBMHeader</con2:xpathText>
+                        </con3:location>
+                        <con3:expr>
+                            <con2:xqueryText>$newEBMHeader</con2:xqueryText>
+                        </con3:expr>
+                    </con3:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-a700615.N681abb6a.0.1671ccb3e8c.N7e5d" name="Validacion" errorHandler="error-a700615.N681abb6a.0.1671ccb3e8c.N7e5b">
+                <con:context>
+                    <con2:userNsDecl prefix="sch" namespace="schema.consulta"/>
+                </con:context>
+                <con:actions>
+                    <con3:validate>
+                        <con2:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7e5c</con2:id>
+                        <con3:schema ref="SMAR_ControlCredito/Resorces/Schemas/ConsultaSchema"/>
+                        <con3:schemaElement xmlns:sch="schema.consulta">sch:ConsultaCredito</con3:schemaElement>
+                        <con3:varName>body</con3:varName>
+                        <con3:location>
+                            <con2:xpathText>./sch:ConsultaCredito</con2:xpathText>
+                        </con3:location>
+                        <con3:resultVarName/>
+                    </con3:validate>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-a700615.N681abb6a.0.1671ccb3e8c.N7f78" name="Transformaciones">
+                <con:context>
+                    <con2:userNsDecl prefix="ebm" namespace="http://xmlns.cencosud.corp/Core/EBM/Common/EBM"/>
+                    <con2:userNsDecl prefix="sch" namespace="schema.consulta"/>
+                </con:context>
+                <con:actions>
+                    <con6:assign varName="toSendSAP" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con3:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7f39</con3:id>
+                        <con5:expr>
+                            <con3:xqueryTransform>
+                                <con3:resource ref="SMAR_ControlCredito/Resorces/XQuery/ConsultarPOStoSAP"/>
+                                <con3:param name="POS">
+                                    <con3:path>$body/sch:ConsultaCredito</con3:path>
+                                </con3:param>
+                            </con3:xqueryTransform>
+                        </con5:expr>
+                    </con6:assign>
+                    <con6:assign varName="body" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con3:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7f36</con3:id>
+                        <con5:expr>
+                            <con3:xqueryText>&lt;soapenv:Body xmlns:soapenv = 'http://schemas.xmlsoap.org/soap/envelope/'>
+{$toSendSAP}
+&lt;/soapenv:Body></con3:xqueryText>
+                        </con5:expr>
+                    </con6:assign>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-a700615.N681abb6a.0.1671ccb3e8c.N7f79">
+            <con:stage id="_StageId-a700615.N681abb6a.0.1671ccb3e8c.N7f77" name="Transformar">
+                <con:context/>
+                <con:actions>
+                    <con6:assign varName="toSendPOS" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con3:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7efb</con3:id>
+                        <con5:expr>
+                            <con3:xqueryTransform>
+                                <con3:resource ref="SMAR_ControlCredito/Resorces/XQuery/SAPtoPOS"/>
+                                <con3:param name="EBM">
+                                    <con3:path>$newEBMHeader</con3:path>
+                                </con3:param>
+                                <con3:param name="SAP">
+                                    <con3:path>$body/*:ZrfcConsCreditoResponse</con3:path>
+                                </con3:param>
+                            </con3:xqueryTransform>
+                        </con5:expr>
+                    </con6:assign>
+                    <con6:assign varName="body" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con5="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con3:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7ef3</con3:id>
+                        <con5:expr>
+                            <con3:xqueryText>&lt;soapenv:Body xmlns:soapenv = 'http://schemas.xmlsoap.org/soap/envelope/'>
+{$toSendPOS}
+&lt;/soapenv:Body></con3:xqueryText>
+                        </con5:expr>
+                    </con6:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53ee35fe.N4e664649.0.1673b79e315.N7f1c" name="Logear lo que sale">
+                <con:context/>
+                <con:actions>
+                    <con5:log>
+                        <con2:id>_ActionId-N53ee35fe.N4e664649.0.1673b79e315.N7f1b</con2:id>
+                        <con5:logLevel>debug</con5:logLevel>
+                        <con5:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con5:expr>
+                        <con5:message>Mensaje que sale para POS ---------></con5:message>
+                    </con5:log>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-a700615.N681abb6a.0.1671ccb3e8c.N7e5b">
+            <con:stage id="_StageId-a700615.N681abb6a.0.1671ccb3e8c.N7e5a" name="error">
+                <con:context/>
+                <con:actions>
+                    <con3:Error>
+                        <con2:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7e57</con2:id>
+                        <con3:errCode>errorValidacionEsquema</con3:errCode>
+                        <con3:message>El esquema que esta llegando esta mal armado o algun dato no cumple con los parametros necesarios</con3:message>
+                    </con3:Error>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-a700615.N681abb6a.0.1671ccb3e8c.N7e56">
+            <con:stage id="_StageId-a700615.N681abb6a.0.1671ccb3e8c.N7e55" name="Manejo">
+                <con:context>
+                    <con2:userNsDecl prefix="ebm" namespace="http://xmlns.cencosud.corp/Core/EBM/Common/EBM"/>
+                    <con2:userNsDecl prefix="sch" namespace="schema.consulta"/>
+                </con:context>
+                <con:actions>
+                    <con3:assign varName="body">
+                        <con2:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7e52</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText><![CDATA[<soapenv:Body xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Fault>
+      <messageId>{$messageID}</messageId>
+      <errorcode>{fn:data($fault/ctx:errorCode)}</errorcode>
+      <errordesc>{fn:data($fault/ctx:reason)}</errordesc>
+    </soapenv:Fault>
+  </soapenv:Body>]]></con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                    <con5:log>
+                        <con2:id>_ActionId-N53ee35fe.N4e664649.0.1673b79e315.N7f17</con2:id>
+                        <con5:logLevel>debug</con5:logLevel>
+                        <con5:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con5:expr>
+                        <con5:message>Error message ---></con5:message>
+                    </con5:log>
+                    <con2:reply>
+                        <con2:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7e4f</con2:id>
+                    </con2:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node">
+                <con:request>request-a700615.N681abb6a.0.1671ccb3e8c.N7f7a</con:request>
+                <con:response>response-a700615.N681abb6a.0.1671ccb3e8c.N7f79</con:response>
+            </con:pipeline-node>
+            <con:route-node name="Operar">
+                <con:context/>
+                <con:actions>
+                    <con4:route>
+                        <con2:id>_ActionId-a700615.N681abb6a.0.1671ccb3e8c.N7f2f</con2:id>
+                        <con4:service ref="SMAR_ControlCredito/BusinessServices/ConsultaCreditoBS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con4:operation>ZrfcConsCredito</con4:operation>
+                        <con4:outboundTransform>
+                            <con5:log>
+                                <con2:id>_ActionId-N53ee35fe.N4e664649.0.1673b79e315.N7f8b</con2:id>
+                                <con5:logLevel>debug</con5:logLevel>
+                                <con5:expr>
+                                    <con2:xqueryText>$body</con2:xqueryText>
+                                </con5:expr>
+                                <con5:message>Mensaje que sale para SAP -----></con5:message>
+                            </con5:log>
+                        </con4:outboundTransform>
+                        <con4:responseTransform>
+                            <con5:log>
+                                <con2:id>_ActionId-N53ee35fe.N4e664649.0.1673b79e315.N7f86</con2:id>
+                                <con5:logLevel>debug</con5:logLevel>
+                                <con5:expr>
+                                    <con2:xqueryText>$body</con2:xqueryText>
+                                </con5:expr>
+                                <con5:message>Mensaje que llega de SAP-----></con5:message>
+                            </con5:log>
+                        </con4:responseTransform>
+                    </con4:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

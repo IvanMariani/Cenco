@@ -1,0 +1,97 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n1="urn:sap-com:document:sap:rfc:functions" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style">
+	<wsdl:documentation><sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl"/></wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+			<xsd:simpleType name="date10">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="10"/>
+					<xsd:pattern value="\d\d.\d\d.\d\d\d\d"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char16">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="16"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char2">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char4">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char50">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="curr15.2">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="15"/>
+					<xsd:fractionDigits value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="time">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="8"/>
+					<xsd:pattern value="\d\d:\d\d:\d\d"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:schema>
+		<xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n0="urn:sap-com:document:sap:rfc:functions">
+			<xsd:import namespace="urn:sap-com:document:sap:rfc:functions"/>
+			<xsd:element name="ZrfcActCredito">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="IBukrs" type="n0:char4"/>
+						<xsd:element name="ICpudt" type="n0:date10"/>
+						<xsd:element name="ICputm" type="n0:time"/>
+						<xsd:element name="ISaldo" type="n0:curr15.2"/>
+						<xsd:element name="IStcd1" type="n0:char16"/>
+						<xsd:element name="IXblnr" type="n0:char16"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ZrfcActCreditoResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="IDetRes" type="n0:char50"/> <!--- Descripción de la respuesta -->
+						<xsd:element name="IResp" type="n0:char2"/> <!--- Código de respuesta -->
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ZrfcActCredito">
+		<wsdl:part name="parameters" element="tns:ZrfcActCredito"/>
+	</wsdl:message>
+	<wsdl:message name="ZrfcActCreditoResponse">
+		<wsdl:part name="parameters" element="tns:ZrfcActCreditoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="ZwsRFC_ACT_CREDITO">
+		<wsdl:operation name="ZrfcActCredito">
+			<wsdl:input message="tns:ZrfcActCredito"/>
+			<wsdl:output message="tns:ZrfcActCreditoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ZwsRFC_ACT_CREDITO" type="tns:ZwsRFC_ACT_CREDITO">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ZrfcActCredito">
+			<soap:operation soapAction="" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ZWSRFC_ACT_CREDITO">
+		<wsdl:port name="ZwsRFC_ACT_CREDITO" binding="tns:ZwsRFC_ACT_CREDITO">
+			<soap:address location="http://df0-ci.cencosud.corp:8000/sap/bc/srt/rfc/sap/zwsrfc_act_credito/123/zwsrfc_act_credito/zwsrfc_act_credito"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

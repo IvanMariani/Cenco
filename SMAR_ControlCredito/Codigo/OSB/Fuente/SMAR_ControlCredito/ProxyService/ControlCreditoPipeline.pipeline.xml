@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="SMAR_ControlCredito/Resorces/WSDL/operationCredito"/>
+            <con:binding>
+                <con:name>bindingCredito</con:name>
+                <con:namespace>www.cencosud.cl/controlDeCredito</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N8000">
+            <con:stage id="_StageId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fb7" name="Derivar">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="operacion" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con2:id>_ActionId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fb6</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$inbound/*:service/*:operation</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:ifThenElse xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config">
+                        <con2:id>_ActionId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fb5</con2:id>
+                        <con1:case id="_BranchId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fb4">
+                            <con1:condition>
+                                <con2:xqueryText>$operacion = 'ActiualizarCreditoOperacion'</con2:xqueryText>
+                            </con1:condition>
+                            <con1:actions>
+                                <con1:assign varName="goToOperation">
+                                    <con2:id>_ActionId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fb3</con2:id>
+                                    <con1:expr>
+                                        <con2:xqueryText>'SMAR_ControlCredito/ProxyService/ActualizarCreditoLPS'</con2:xqueryText>
+                                    </con1:expr>
+                                </con1:assign>
+                            </con1:actions>
+                        </con1:case>
+                        <con1:default>
+                            <con1:assign varName="goToOperation">
+                                <con2:id>_ActionId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fb2</con2:id>
+                                <con1:expr>
+                                    <con2:xqueryText>'SMAR_ControlCredito/ProxyService/ConsultaCreditoLPS'</con2:xqueryText>
+                                </con1:expr>
+                            </con1:assign>
+                        </con1:default>
+                    </con1:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fff">
+            <con:stage id="_StageId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7ffd" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="ControlDeCredito_Pipeline_Pair">
+                <con:request>request-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N8000</con:request>
+                <con:response>response-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fff</con:response>
+            </con:pipeline-node>
+            <con:route-node name="RouteToOperation">
+                <con:context/>
+                <con:actions>
+                    <con1:dynamic-route>
+                        <con2:id>_ActionId-N53ee35fe.N6e2b0ba9.0.1677e3e5198.N7fae</con2:id>
+                        <con1:service>
+                            <con2:xqueryText>&lt;ctx:route>
+&lt;ctx:service isProxy="true">{$goToOperation}&lt;/ctx:service>
+&lt;/ctx:route></con2:xqueryText>
+                        </con1:service>
+                        <con1:outboundTransform/>
+                        <con1:responseTransform/>
+                    </con1:dynamic-route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

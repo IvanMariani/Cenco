@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="www.cencosud.cl/controlDeCredito" targetNamespace="www.cencosud.cl/controlDeCredito" xmlns:cre = "www.cencosud.cl/controlDeCredito/consulta" xmlns:act="www.cencosud.cl/controlDeCredito/actualizacion">
+	<wsdl:types>
+		<xsd:schema>
+			<xsd:import schemaLocation="../Schemas/ConsultaSchema.xsd" namespace="www.cencosud.cl/controlDeCredito/consulta"/>
+			<xsd:import schemaLocation="../Schemas/ActualizarSchema.xsd" namespace="www.cencosud.cl/controlDeCredito/actualizacion"/>                        
+		</xsd:schema>		
+	</wsdl:types>
+	<wsdl:message name="ConsCredito">
+		<wsdl:part name="consultaCredito" element="cre:ConsultaCredito"/>
+	</wsdl:message>
+	<wsdl:message name="ActuCredito">
+		<wsdl:part name="actualizarCredito" element="act:ActualizarCredito"/>
+	</wsdl:message>
+	<wsdl:message name="CreditoResponse">
+		<wsdl:part name="responseCredito" element="act:responseCredito"/>
+	</wsdl:message>
+	<wsdl:portType name="CretdioPortType">
+		<wsdl:operation name="ConsultarCreditoOperacion">
+			<wsdl:input message="tns:ConsCredito"/>
+			<wsdl:output message="tns:CreditoResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="ActiualizarCreditoOperacion">
+			<wsdl:input message="tns:ActuCredito"/>
+			<wsdl:output message="tns:CreditoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="bindingCredito" type="tns:CretdioPortType">
+	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ConsultarCreditoOperacion">
+			<soap:operation style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ActiualizarCreditoOperacion">
+			<soap:operation style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OperacionesCredito">
+		<wsdl:port name="OperacionesCredito" binding="tns:bindingCredito">
+			<soap:address location="http://localhost:8808/operCredito"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

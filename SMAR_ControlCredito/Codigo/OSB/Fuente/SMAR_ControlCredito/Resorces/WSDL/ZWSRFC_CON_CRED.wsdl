@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n1="urn:sap-com:document:sap:rfc:functions" xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style">
+	<wsdl:documentation><sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl"/></wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+			<xsd:simpleType name="char16">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="16"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char2">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char4">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="4"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="char50">
+				<xsd:restriction base="xsd:string">
+					<xsd:maxLength value="50"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:simpleType name="curr15.2">
+				<xsd:restriction base="xsd:decimal">
+					<xsd:totalDigits value="15"/>
+					<xsd:fractionDigits value="2"/>
+				</xsd:restriction>
+			</xsd:simpleType>
+		</xsd:schema>
+		<xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n0="urn:sap-com:document:sap:rfc:functions">
+			<xsd:import namespace="urn:sap-com:document:sap:rfc:functions"/>
+			<xsd:element name="ZrfcConsCredito">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="IBukrs" type="n0:char4"/>
+						<xsd:element name="ISaldo" type="n0:curr15.2"/>
+						<xsd:element name="IStcd1" type="n0:char16"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ZrfcConsCreditoResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="IDetRes" type="n0:char50"/>
+						<xsd:element name="IResp" type="n0:char2"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ZrfcConsCredito">
+		<wsdl:part name="parameters" element="tns:ZrfcConsCredito"/>
+	</wsdl:message>
+	<wsdl:message name="ZrfcConsCreditoResponse">
+		<wsdl:part name="parameters" element="tns:ZrfcConsCreditoResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="ZwsRFC_CONS_CREDITO">
+		<wsdl:operation name="ZrfcConsCredito">
+			<wsdl:input message="tns:ZrfcConsCredito"/>
+			<wsdl:output message="tns:ZrfcConsCreditoResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ZwsRFC_CONS_CREDITO" type="tns:ZwsRFC_CONS_CREDITO">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="ZrfcConsCredito">
+			<soap:operation soapAction="" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ZWSRFC_CONS_CREDITO">
+		<wsdl:port name="ZwsRFC_CONS_CREDITO" binding="tns:ZwsRFC_CONS_CREDITO">
+			<soap:address location="http://df0-ci.cencosud.corp:8000/sap/bc/srt/rfc/sap/zwsrfc_cons_credito/123/zwsrfc_cons_credito/zwsrfc_cons_credito"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

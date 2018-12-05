@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="d4716bb5-e43c-42e0-adfd-60ea58b43237" activeEnvironment="Default" name="ActualizarCredito" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="4e0dc77c-3df2-4eec-9de9-1b64a763a5f7" wsaVersion="NONE" name="ZwsRFC_ACT_CREDITO" type="wsdl" bindingName="{urn:sap-com:document:sap:soap:functions:mc-style}ZwsRFC_ACT_CREDITO" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/ivan.mariani/Desktop/Cencosud/ResourcesSAP/ZWSRFC_ACT_CRED.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\ivan.mariani\Desktop\Cencosud\ResourcesSAP\ZWSRFC_ACT_CRED.wsdl"><con:part><con:url>file:\C:\Users\ivan.mariani\Desktop\Cencosud\ResourcesSAP\ZWSRFC_ACT_CRED.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n1="urn:sap-com:document:sap:rfc:functions">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl"/>
+  </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="date10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10"/>
+          <xsd:pattern value="\d\d.\d\d.\d\d\d\d"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char16">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="16"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char2">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char4">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="4"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char50">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="50"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="curr15.2">
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="15"/>
+          <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="time">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="8"/>
+          <xsd:pattern value="\d\d:\d\d:\d\d"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n0="urn:sap-com:document:sap:rfc:functions">
+      <xsd:import namespace="urn:sap-com:document:sap:rfc:functions"/>
+      <xsd:element name="ZrfcActCredito">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="IBukrs" type="n0:char4"/>
+            <xsd:element name="ICpudt" type="n0:date10"/>
+            <xsd:element name="ICputm" type="n0:time"/>
+            <xsd:element name="ISaldo" type="n0:curr15.2"/>
+            <xsd:element name="IStcd1" type="n0:char16"/>
+            <xsd:element name="IXblnr" type="n0:char16"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZrfcActCreditoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="IDetRes" type="n0:char50"/>
+            <!--- Descripción de la respuesta-->
+            <xsd:element name="IResp" type="n0:char2"/>
+            <!--- Código de respuesta-->
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZrfcActCredito">
+    <wsdl:part name="parameters" element="tns:ZrfcActCredito"/>
+  </wsdl:message>
+  <wsdl:message name="ZrfcActCreditoResponse">
+    <wsdl:part name="parameters" element="tns:ZrfcActCreditoResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ZwsRFC_ACT_CREDITO">
+    <wsdl:operation name="ZrfcActCredito">
+      <wsdl:input message="tns:ZrfcActCredito"/>
+      <wsdl:output message="tns:ZrfcActCreditoResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ZwsRFC_ACT_CREDITO" type="tns:ZwsRFC_ACT_CREDITO">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ZrfcActCredito">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZWSRFC_ACT_CREDITO">
+    <wsdl:port name="ZwsRFC_ACT_CREDITO" binding="tns:ZwsRFC_ACT_CREDITO">
+      <soap:address location="http://df0-ci.cencosud.corp:8000/sap/bc/srt/rfc/sap/zwsrfc_act_credito/123/zwsrfc_act_credito/zwsrfc_act_credito"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://df0-ci.cencosud.corp:8000/sap/bc/srt/rfc/sap/zwsrfc_act_credito/123/zwsrfc_act_credito/zwsrfc_act_credito</con:endpoint></con:endpoints><con:operation id="cd2477a8-6470-4401-8d20-597b6308c420" isOneWay="false" action="" name="ZrfcActCredito" bindingOperationName="ZrfcActCredito" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e6326413-cdb6-411a-a862-5807d7fb74b2" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.60.227:8085/ActualizarCredito</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <urn:ZrfcActCredito>\r
+         <IBukrs>?</IBukrs>\r
+         <ICpudt>?</ICpudt>\r
+         <ICputm>?</ICputm>\r
+         <ISaldo>?</ISaldo>\r
+         <IStcd1>2342342</IStcd1>\r
+         <IXblnr>?</IXblnr>\r
+      </urn:ZrfcActCredito>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_ACT_CREDITO/ZrfcActCreditoRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="b2ef91a6-0ba5-4e49-903d-c47fe3a7055c" port="8085" path="/ActualizarCredito" host="eze1-lhp-b01679" name="MockService" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="ZrfcActCredito" id="5cccd5ba-dbe6-4fc1-9b48-1664c4a79a8f" interface="ZwsRFC_ACT_CREDITO" operation="ZrfcActCredito"><con:settings/><con:defaultResponse>Response 4</con:defaultResponse><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:response name="Response 1" id="00a46e84-ff7e-4044-a265-0f52a0df5bab" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcActCreditoResponse>
+         <IDetRes>Se cargó el registro en forma correcta</IDetRes>
+         <IResp>01</IResp>
+      </urn:ZrfcActCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_ACT_CREDITO/ZrfcActCreditoResponse"/></con:response><con:response name="Response 2" id="716f38d3-d93d-47f1-a050-35a0cbd35313" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcActCreditoResponse>
+         <IDetRes>Ya existe el registro informado</IDetRes>
+         <IResp>02</IResp>
+      </urn:ZrfcActCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_ACT_CREDITO/ZrfcActCreditoResponse"/></con:response><con:response name="Response 3" id="15593540-61ba-4bbe-bc0c-3e1ee242033d" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcActCreditoResponse>
+         <IDetRes>No se pudo cargar el registro</IDetRes>
+         <IResp>03</IResp>
+      </urn:ZrfcActCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_ACT_CREDITO/ZrfcActCreditoResponse"/></con:response><con:response name="Response 4" id="7bee4179-61dd-442b-a6fc-afb1d7bac0f6" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcActCreditoResponse>
+         <IDetRes>No existe crédito asignado, no permitir operación</IDetRes>
+         <IResp>04</IResp>
+      </urn:ZrfcActCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_ACT_CREDITO/ZrfcActCreditoResponse"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>1</con:name><con:query>.//IStcd1</con:query><con:match>20408636850</con:match><con:response>Response 1</con:response></con:query><con:query><con:name>2</con:name><con:query>.//IStcd1</con:query><con:match>20234566549</con:match><con:response>Response 2</con:response></con:query><con:query><con:name>3</con:name><con:query>.//IStcd1</con:query><con:match>20210543334</con:match><con:response>Response 3</con:response></con:query><con:query><con:name>4</con:name><con:query>.//IStcd1</con:query><con:match>20125438761</con:match><con:response>Response 4</con:response></con:query></con:dispatchConfig></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

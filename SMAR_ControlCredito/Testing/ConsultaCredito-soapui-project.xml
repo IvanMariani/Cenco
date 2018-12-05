@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="2de93877-d9b7-4c2d-be0f-9108e1861eb5" activeEnvironment="Default" name="ConsultaCredito" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="57000341-8a14-4676-a7c2-75eaabd6539d" wsaVersion="NONE" name="ZwsRFC_CONS_CREDITO" type="wsdl" bindingName="{urn:sap-com:document:sap:soap:functions:mc-style}ZwsRFC_CONS_CREDITO" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/ivan.mariani/Desktop/Cencosud/ResourcesSAP/ZWSRFC_CON_CRED.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\ivan.mariani\Desktop\Cencosud\ResourcesSAP\ZWSRFC_CON_CRED.wsdl"><con:part><con:url>file:\C:\Users\ivan.mariani\Desktop\Cencosud\ResourcesSAP\ZWSRFC_CON_CRED.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n1="urn:sap-com:document:sap:rfc:functions" xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/">
+  <wsdl:documentation>
+    <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl"/>
+  </wsdl:documentation>
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+      <xsd:simpleType name="char16">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="16"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char2">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char4">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="4"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="char50">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="50"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="curr15.2">
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="15"/>
+          <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+    <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:soap:functions:mc-style" xmlns:n0="urn:sap-com:document:sap:rfc:functions">
+      <xsd:import namespace="urn:sap-com:document:sap:rfc:functions"/>
+      <xsd:element name="ZrfcConsCredito">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="IBukrs" type="n0:char4"/>
+            <xsd:element name="ISaldo" type="n0:curr15.2"/>
+            <xsd:element name="IStcd1" type="n0:char16"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ZrfcConsCreditoResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="IDetRes" type="n0:char50"/>
+            <xsd:element name="IResp" type="n0:char2"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ZrfcConsCredito">
+    <wsdl:part name="parameters" element="tns:ZrfcConsCredito"/>
+  </wsdl:message>
+  <wsdl:message name="ZrfcConsCreditoResponse">
+    <wsdl:part name="parameters" element="tns:ZrfcConsCreditoResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="ZwsRFC_CONS_CREDITO">
+    <wsdl:operation name="ZrfcConsCredito">
+      <wsdl:input message="tns:ZrfcConsCredito"/>
+      <wsdl:output message="tns:ZrfcConsCreditoResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ZwsRFC_CONS_CREDITO" type="tns:ZwsRFC_CONS_CREDITO">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ZrfcConsCredito">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ZWSRFC_CONS_CREDITO">
+    <wsdl:port name="ZwsRFC_CONS_CREDITO" binding="tns:ZwsRFC_CONS_CREDITO">
+      <soap:address location="http://df0-ci.cencosud.corp:8000/sap/bc/srt/rfc/sap/zwsrfc_cons_credito/123/zwsrfc_cons_credito/zwsrfc_cons_credito"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://df0-ci.cencosud.corp:8000/sap/bc/srt/rfc/sap/zwsrfc_cons_credito/123/zwsrfc_cons_credito/zwsrfc_cons_credito</con:endpoint></con:endpoints><con:operation id="18f83c61-1628-48e4-ac21-d3380ade0b6a" isOneWay="false" action="" name="ZrfcConsCredito" bindingOperationName="ZrfcConsCredito" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cc0f4e4a-1731-4d96-aa6a-2e857c4879cf" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8085/ActualizarCredito</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <urn:ZrfcConsCredito>\r
+         <IBukrs>?</IBukrs>\r
+         <ISaldo>?</ISaldo>\r
+         <IStcd1>?</IStcd1>\r
+      </urn:ZrfcConsCredito>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_CONS_CREDITO/ZrfcConsCreditoRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="d4573b6a-18b7-4bb6-a88c-9b510f5ba3c4" port="8085" path="/ConsultaCredit" host="eze1-lhp-b01679" name="MockService" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="ZrfcConsCredito" id="5099bcc3-9a1f-49a4-b519-b7c6556d0a6f" interface="ZwsRFC_CONS_CREDITO" operation="ZrfcConsCredito"><con:settings/><con:defaultResponse>Response 4</con:defaultResponse><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:response name="Response 1" id="3e3cc0eb-718f-4ef7-bd82-af06913a5f82" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcConsCreditoResponse>
+         <IDetRes>Saldo disponible, permitir operación</IDetRes>
+         <IResp>01</IResp>
+      </urn:ZrfcConsCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_CONS_CREDITO/ZrfcConsCreditoResponse"/></con:response><con:response name="Response 3" id="51d054a1-562a-462f-973f-b952eb30b672" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcConsCreditoResponse>
+         <IDetRes>Deuda vencida, no permitir operación</IDetRes>
+         <IResp>03</IResp>
+      </urn:ZrfcConsCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_CONS_CREDITO/ZrfcConsCreditoResponse"/></con:response><con:response name="Response 4" id="dc61746d-5725-495c-b81b-9e5caaf59b40" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcConsCreditoResponse>
+         <IDetRes>No existe crédito asignado, no permitir operación</IDetRes>
+         <IResp>04</IResp>
+      </urn:ZrfcConsCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_CONS_CREDITO/ZrfcConsCreditoResponse"/></con:response><con:response name="Response 2" id="7aeb5a9f-51c7-4a44-b579-4dafaa337851" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:sap-com:document:sap:soap:functions:mc-style">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ZrfcConsCreditoResponse>
+         <IDetRes>Saldo insuficiente, no permitir operación</IDetRes>
+         <IResp>02</IResp>
+      </urn:ZrfcConsCreditoResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:sap-com:document:sap:soap:functions:mc-style/ZwsRFC_CONS_CREDITO/ZrfcConsCreditoResponse"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>1</con:name><con:query>.//IStcd1</con:query><con:match>20408636850</con:match><con:response>Response 1</con:response></con:query><con:query><con:name>2</con:name><con:query>.//IStcd1</con:query><con:match>20234566549</con:match><con:response>Response 2</con:response></con:query><con:query><con:name>3</con:name><con:query>.//IStcd1</con:query><con:match>20210543334</con:match><con:response>Response 3</con:response></con:query><con:query><con:name>4</con:name><con:query>.//IStcd1</con:query><con:match>20125438761</con:match><con:response>Response 4</con:response></con:query></con:dispatchConfig></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

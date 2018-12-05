@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:act="www.cencosud.cl/controlDeCredito/actualizacion"
+            targetNamespace="www.cencosud.cl/controlDeCredito/actualizacion" elementFormDefault="qualified" xmlns:ebm = "http://xmlns.cencosud.corp/Core/EBM/Common/EBM" xmlns:typ="www.cencosud.cl/types">
+<xsd:import schemaLocation="commonsType.xsd" namespace="www.cencosud.cl/types"/>
+<xsd:import schemaLocation="EBM.xsd" namespace="http://xmlns.cencosud.corp/Core/EBM/Common/EBM"/>
+	<xsd:element name="ActualizarCredito">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="ebm:EBMHeader"/>
+				<xsd:element name="FecTransaccion" type="typ:typeFecTransaccion"/>
+				<xsd:element name="HoraTransaccion" type="typ:typeHoraTransaccion"/>
+				<xsd:element name="Import"  type="typ:typeImport"/>
+				<xsd:element name="DNI" type="typ:typeDNIReferencia"/>
+				<xsd:element name="Cuit"  type="typ:typeCuit"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="responseCredito">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="EBMHeaderSalida" type="ebm:ResponseEBMType"/>
+				<xsd:element name="idResp" type="xsd:string"/>
+				<xsd:element name="descResp" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
