@@ -51,7 +51,7 @@
             </xt:replace>
             <xt:replace>
                 <xt:envValueType>Read Timeout for HTTP Outbound Transport Provider</xt:envValueType>
-                <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">0</xt:value>
+                <xt:value xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema">5</xt:value>
             </xt:replace>
             <xt:replace>
                 <xt:envValueType>Connection Timeout for HTTP Outbound Transport Provider</xt:envValueType>
